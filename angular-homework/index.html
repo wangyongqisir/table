@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+		<meta charset="utf-8" />
+	</head>
+	<link rel="stylesheet" type="text/css" href="js/bootstrap.css"/>
+	<body ng-app="myApp" ng-controller="userCtrl">
+		<div class="container">
+			<h3>Users</h3>
+					<span>排序方式：</span>
+					<select ng-model="sort" style="width: 100px;">
+						<option value="id">Id</option>
+						<option value="Name">Name</option>
+						<option value="age">Age</option>
+					</select>
+					<span>查询方式：</span>
+					<select ng-model="search" style="width: 100px;">
+						<option value="id">Id</option>
+						<option value="Name">Name</option>
+						<option value="age">Age</option>
+					</select>
+					<input type="text" ng-model="inputval1"  />
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Edit</th>
+						<th>Id</th>
+						<th>Name</th>
+						<th>Age</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="user in users | orderBy:sort | filter:{[search]:inputval1}">
+						<td>
+							<button class="btn" ng-click="editUser(user.id)">
+						    	<span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;操作
+						    </button>
+						</td>
+						<td>{{user.id}}</td>
+						<td>{{ user.Name }}</td>
+						<td>{{ user.age }}</td>
+					</tr>
+				</tbody>
+			</table>
+			<hr>
+			<button class="btn btn-success" ng-click="creatuser()" ng-disabled="iscreat">
+  				<span class="glyphicon glyphicon-user" ></span> Create New User
+			</button>
+			<hr>
+			<h3 ng-hide="iscreat">Create New User:</h3>
+			<h3 ng-show="iscreat">Edit User:</h3>
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Id:</label>
+					<div class="col-sm-10">
+						<input type="number" ng-model="currentuser.id" ng-disabled="noChange" placeholder="Id">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Name:</label>
+					<div class="col-sm-10">
+						<input type="text" ng-model="currentuser.Name"  placeholder="Name">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Age:</label>
+					<div class="col-sm-10">
+						<input type="text" ng-model="currentuser.age" placeholder="Age">
+					</div>
+				</div>
+			</form>
+			<hr>
+			<button class="btn btn-success" ng-click="saveChange()" ng-disabled="!noChange">
+	  		<span class="glyphicon glyphicon-save"></span> Save Changes
+			</button>
+			<button class="btn btn-success" ng-click="removeuser()" ng-disabled="!noChange">
+	  		<span class="glyphicon glyphicon-save"></span> Remove user
+			</button>
+		</div>
+	</body>
+	<script src="js/angular.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/myUsers.js"></script>
+</html>

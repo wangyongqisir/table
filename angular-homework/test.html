@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div ng-app="myapp" ng-controller="controller"></div>		
+	</body>
+	<script src="js/angular.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var myapp=angular.module("myapp",[]);
+		myapp.controller("controller",["$scope","$http",function($scope,$http){
+			$scope.data=[{"name":"wangsir","age":"25"}];
+			$http.get("server.php",{}).success(function(data){
+				console.log(data);
+			})
+//			$http({
+//				method:"POST",
+//				url:"save.php",
+//				data:{
+//					"name":"wangsir"
+//				}
+//			}).success(function(data,status){
+//				console.log(data);
+//				console.log(2);
+//			}).error(function(data,status){
+//				console.log(status);
+//			})
+		}])
+	</script>
+</html>
+	<!--$.ajax({
+			type:"post",
+			url:"text.php",
+			async:true,
+			data:{
+				"type":"append",
+				"name":name,
+				"tel":tel,
+				"add":add,
+				"address":address,
+				"text",text
+			},
+			success:function(){
+				console.log(obj);
+			}
+		});-->
